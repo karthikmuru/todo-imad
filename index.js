@@ -1,21 +1,9 @@
 var express = require('express');
-/*var bodyParser = require('body-parser');
-var cookieParser = require('cookie-parser');
-var expressSession = require('express-session');
-var pg = require('pg');
-
-app.use(bodyParser);
-app.use(bodyParser.urlencoded({extended: false }));*/
 var app = express();
+app.set('port', (process.env.PORT || 5000));
 app.set('view engine','ejs');
-/*app.use(expressSession({
-    
-    secret: '123456789',
-    resave: false,
-    saveUninitialized: false
-    
-}));*/
-
 require('./app/routes.js')(app);
-console.log("listening to port 3000");
-app.listen(3000);
+
+app.listen(app.get('port'), function() {
+  console.log('Node app is running on port', app.get('port'));
+});
