@@ -10,12 +10,13 @@ mongoose.connect('mongodb://test:test@ds139327.mlab.com:39327/todo');
 
 //Create schema
 var todoSchema = new mongoose.Schema({
-    item: String
+    username: String,
+    password: String
 });
 
-var Todo = mongoose.model('Todo',todoSchema);
+var account = mongoose.model('account',todoSchema);
 
-var item = Todo({item:'buy flowers'}).save(function(err){
+var item = account({username:'karthik',password:'password'}).save(function(err){
 
     console.log(err);
 });
