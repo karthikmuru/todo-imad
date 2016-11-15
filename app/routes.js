@@ -45,10 +45,14 @@ module.exports = function(app){
     
     app.post('/profile',parser,function(req,res){
        
-        todo.insert({username: req.session.uniqueID, item:req.body.item},function(err){
+        var item = todo(req.body).save(function(err,data){
             if(err) throw err;
             res.redirect('/profile');
-        });
+        })
+       /* todo.insert({username: req.session.uniqueID, item:req.body},function(err){
+            if(err) throw err;
+            res.redirect('/profile');
+        });*/
         
     });
     app.get('/logout',function(req,res){
