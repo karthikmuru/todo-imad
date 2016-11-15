@@ -1,26 +1,26 @@
 var express = require('express');
-var app = express();
-var mongoose = require('mongoose');
 
+var mongoose = require('mongoose');
+var expressSession = require('express-session');
+
+
+
+var app = express();
 app.set('port', (process.env.PORT || 5000));
 app.set('view engine','ejs');
 
+app.use(expressSession({
+    
+    secret: '123456789QWERTY',
+    resave: false,
+    saveUninitialized: false
+    
+}));
 
-mongoose.connect('mongodb://test:test@ds139327.mlab.com:39327/todo');
-
-//Create schema
-var todoSchema = new mongoose.Schema({
-    username: String,
-    password: String
+app.use(express.static('./views'));
+app.get('/css/styles.css', function (req, res) {
+  res.sendFile(path.join(__dirname,'css', 'styles.css'));
 });
-
-var account = mongoose.model('account',todoSchema);
-
-var item = account({username:'karthik',password:'password'}).save(function(err){
-
-    console.log(err);
-});
-
 require('./app/routes.js')(app);
 
 app.listen(app.get('port'), function() {
