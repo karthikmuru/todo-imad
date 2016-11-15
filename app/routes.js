@@ -45,7 +45,7 @@ module.exports = function(app){
     
     app.post('/profile',parser,function(req,res){
        
-        var item = todo(req.body).save(function(err,data){
+        var item = todo({username:req.session.uniqueID, item:req.body}).save(function(err,data){
             if(err) throw err;
             res.redirect('/profile');
         })
