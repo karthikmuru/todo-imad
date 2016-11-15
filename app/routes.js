@@ -42,6 +42,15 @@ module.exports = function(app){
         //res.render('profile',{user: req.session.uniqueID});
         
     });
+    
+    app.post('/profile',parser,function(req,res){
+       
+        todo.insert({username: req.session.uniqueID, item:req.body.item},function(err){
+            if(err) throw err;
+            res.redirect('/profile');
+        });
+        
+    });
     app.get('/logout',function(req,res){
        
         req.session.destroy(function(err){
