@@ -35,8 +35,11 @@ module.exports = function(app){
     app.get('/profile',function(req,res){
        
         todo.find({username: req.session.uniqueID},function(err,data){
-           
-            res.render('profile',{todo:data.item , user:req.session.uniqueID});
+            
+            if(err)
+                console.log(err);    
+            else
+                res.render('profile',{todo:data.item , user:req.session.uniqueID});
         });
         
         //res.render('profile',{user: req.session.uniqueID});
