@@ -36,7 +36,7 @@ module.exports = function(app){
        
         todo.find({username: req.session.uniqueID},function(err,data){
            
-            res.render('profile',{todo:data , user:req.session.uniqueID});
+            res.render('profile',{todo:data.item , user:req.session.uniqueID});
         });
         
         //res.render('profile',{user: req.session.uniqueID});
@@ -45,7 +45,7 @@ module.exports = function(app){
     
     app.post('/profile',parser,function(req,res){
        
-        var item = todo({username:req.session.uniqueID, item:req.body}).save(function(err,data){
+        var item = todo(req.body).save(function(err,data){
             if(err) throw err;
             res.redirect('/profile');
         })
