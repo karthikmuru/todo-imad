@@ -114,7 +114,7 @@ module.exports = function(app){
     });
     app.post('/signup',parser,function(req,res){
        
-       var item = new account({username:req.body.username,email:req.body.email,password:req.body.password},function(err,data){
+       var item = new account({username:req.body.username,email:req.body.email,password:req.body.password}).save(function(err,data){
            if(err) throw err;
             res.redirect('/');           
        }); 
