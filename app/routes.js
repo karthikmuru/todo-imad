@@ -10,7 +10,7 @@ var todoSchema = new mongoose.Schema({
     username: String,
     item: String
 });
-var accSchema = new mongoose.Scgema({
+var accSchema = new mongoose.Schema({
    
     username:String,
     password:String,
@@ -62,7 +62,7 @@ module.exports = function(app){
         //session = req.session;
         console.log(req.body.username);
         console.log(req.body.password);
-        req.session.uniqueID = req.body.username;
+        //req.session.uniqueID = req.body.username;
         res.redirect('/profile');
     });
     app.get('/redirect',function(req,res){
