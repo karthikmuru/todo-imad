@@ -85,8 +85,13 @@ passport.serializeUser(function(user, done){
 passport.deserializeUser(function(id, done){
        
     account.findById(id,function(err,data){
-           
-        done({id:id, user:data.username});
+        
+        if(err) throw err;
+        if(data.length ==1)
+        {
+            done({id:id, user:data.username});   
+        }
+        
                         
     });
      //console.log("Deserialize");
