@@ -2,8 +2,9 @@ var bodyParser = require('body-parser');
 var parser = bodyParser.urlencoded({ extended: false });
 var mongoose = require("mongoose");
 var passport = require('passport');
-var passportLocal = require('passport-local');
-mongoose.connect('mongodb://test:test@ds139327.mlab.com:39327/todo');
+var passportLocal = require('passport-local').Strategy;
+
+/*mongoose.connect('mongodb://test:test@ds139327.mlab.com:39327/todo');
 
 //Create schema
 var todoSchema = new mongoose.Schema({
@@ -20,39 +21,47 @@ var accSchema = new mongoose.Schema({
 
 var account = mongoose.model('account',accSchema);
 var todo = mongoose.model('todo',todoSchema);
-
+*/
 
 module.exports = function(app){
 
     //passport Use
     app.use(passport.initialize());
     app.use(passport.session());
-    passport.use(new passportLocal.Strategy(function(username,password,data){
+    passport.use(new passportLocal(function(username,password,data){
         
-        account.find({username:username,password:password},function(err,data){
+        /*account.find({username:username,password:password},function(err,data){
             
             if(data.length == 1)
                 done(null,{id:data._id,user:username});
             else
                 done(null,null);
-        });
+        });*/
+        console.log("Strategy");
+        if(username === password)
+            done(null,{id:username , user:username});
+        else
+            done(null,null);
         
     }));
     
-    passport.serializeUser(function(user, done){
+   /* passport.serializeUser(function(user, done){
        
+        console.log("Serialize");
         done(user.id);
     });
     
     passport.deserializeUser(function(id, done){
        
-        account.findById(id,function(err,data){
+        /*account.findById(id,function(err,data){
            
             done({id:id, user:data.username});
                         
         });
+        console.log("Deserialize");
+        done({id:id});
     });
-    
+    */
     app.get('/',function(req,res){
    
         res.render('home-page');
@@ -60,27 +69,23 @@ module.exports = function(app){
     app.post('/',passport.authenticate('local'),function(req,res){
         
         //session = req.session;
-        console.log(req.body.username);
-        console.log(req.body.password);
+        /*console.log(req.body.username);
+        console.log(req.body.password);*/
         //req.session.uniqueID = req.body.username;
         res.redirect('/profile');
     });
-    app.get('/redirect',function(req,res){
-       
-        console.log("rediect : " + req.session.uniqueID);
-        res.redirect('/profile');
-        //res.render('home',{user: req.session.uniqueID});
-    });
+
     app.get('/profile',function(req,res){
        
-        if(req.isAuthenticated() == false)
+        console.log(req.id);
+        /*if(req.isAuthenticated() != true)
             res.render('/');
         else{
              res.render('profile',{
                 isAuthenticated: req.isAuthenticated(),
                 user:req.user
              });
-        }
+        }*/
        
         /*todo.find({username: req.session.uniqueID},function(err,data){
             
