@@ -62,6 +62,7 @@ passport.use(new passportLocal(function(username,password,done){
         
     account.find({username:username,password:password},function(err,data){
             
+        console.log(data.email);
         if(data.length == 1)
              done(null,{id:data._id,user:username});
         else
