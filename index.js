@@ -1,5 +1,5 @@
 var express = require('express');
-
+var cookieParser = require('cookie-parser');
 var mongoose = require('mongoose');
 var expressSession = require('express-session');
 
@@ -9,6 +9,7 @@ var app = express();
 app.set('port', (process.env.PORT || 5000));
 app.set('view engine','ejs');
 
+//express-session
 app.use(expressSession({
     
     secret: '123456789QWERTY',
@@ -16,6 +17,11 @@ app.use(expressSession({
     saveUninitialized: false
     
 }));
+app.use(cookieParser());
+
+
+
+
 
 app.use(express.static('./views'));
 app.get('/css/styles.css', function (req, res) {
