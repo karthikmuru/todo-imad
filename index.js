@@ -54,30 +54,20 @@ var accSchema = new mongoose.Schema({
 var account = mongoose.model('account',accSchema);
 var todo = mongoose.model('todo',todoSchema);
     
-/*passport.use(new passportLocal(function(username,password,done){
+passport.use(new passportLocal(function(username,password,done){
         
-    account.find({username:username},function(err,data){
+    account.find({username:username,password:password},function(err,data){
         
-        /*if(err)
-            throw err;
-        //console.log(data.email);
-        if(data.length === 1)*/
-             //done(null,{id:data.username,user:data.username});
-        /*else
-              done(null,null);*/
-    // });
-    //console.log("Strategy");
-    /*if(username === password)
-        done(null,{id:username , user:username});
-    else
-        done(null,null);*/
-        
- //}));
- /*   
-passport.serializeUser(function(user, done){
+        if(err) throw err;
+        if(data.length == 1) done(null,{id:data});
+        else done(null,null);
+    });        
+ }));
+  
+passport.serializeUser(function(id, done){
    
       //console.log("Serialize");
-        done(user.id);
+        done(id.username);
  });
     
 passport.deserializeUser(function(id, done){
@@ -85,17 +75,19 @@ passport.deserializeUser(function(id, done){
     account.find({username:id},function(err,data){
         
         if(err) throw err;
-        if(data.length ==1)
+        if(data.length == 1)
         {
-            done({id:id, user:data.username});   
+            done(null,{user:id});   
         }
+        else
+            done(null,null);
         
                         
     });
      //console.log("Deserialize");
-    done({id:id});
+    //done({id:id});
 });
-*/
+
 app.get('/',function(req,res){
     
 
@@ -116,36 +108,38 @@ app.get('/',function(req,res){
      */
     res.render('home-page');
 }); 
-//passport.authenticate('local',{ successRedirect: 'profile',failureRedirect: '/'})
-app.post('/',function(req,res){
+
+app.post('/',passport.authenticate('local',{ successRedirect: '/profile',failureRedirect: '/'},function(req,res){
     
     //res.render('signup');
-    account.find({username:"karthikmuru"},function(err,data){
+    /*account.find({username:"karthikmuru"},function(err,data){
         
         if(err) throw err;
         res.render('sample',{data:data});
-     });
+     });*/
  });
 
 app.get('/profile',function(req,res){
        
     //console.log(req.id);
-    /*if(req.isAuthenticated() != true)
+    if(req.isAuthenticated() != true)
         res.render('/');
     else{
-         res.render('profile',{
+        
+        todo.find({username:req.user},function(err,data){
+            
+            if(err)
+               console.log(err);    
+            else
+                res.render('profile',{todo:data , user:req.user});
+        });
+         /*res.render('profile',{
             isAuthenticated: req.isAuthenticated(),
             user:req.user
-            });
-    }*/
+            });*/
+    }
        
-    todo.find({username: "karthik"},function(err,data){
-            
-        if(err)
-           console.log(err);    
-        else
-            res.render('profile',{todo:data.item , user:data.username});
-    });
+    
     
     //res.render('profile',{user: req.session.uniqueID});
         
