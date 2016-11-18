@@ -56,7 +56,7 @@ var todo = mongoose.model('todo',todoSchema);
     
 passport.use(new passportLocal(function(username,password,done){
         
-    account.find({username:username,password:password},function(err,data){
+    account.find({username:username},function(err,data){
         
         /*if(err)
             throw err;
@@ -104,7 +104,7 @@ app.get('/',function(req,res){
 app.post('/',function(req,res){
     
     //res.render('signup');
-    account.find({username:username,password:password},function(err,data){
+    todo.find({username:username},function(err,data){
         
         res.render('sample',{data:data});
      });
