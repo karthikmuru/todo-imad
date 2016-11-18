@@ -52,7 +52,7 @@ var accSchema = new mongoose.Schema({
 });
 
 var account = mongoose.model('accounts',accSchema);
-var todo = mongoose.model('todo',todoSchema);
+var todo = mongoose.model('todos',todoSchema);
     
 passport.use(new passportLocal(function(username,password,done){
         
