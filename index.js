@@ -100,7 +100,7 @@ app.get('/',function(req,res){
    
     res.render('home-page');
 }); 
-app.post('/',passport.authenticate('local'),function(req,res){
+app.post('/',passport.authenticate('local',{ successRedirect: 'profile',failureRedirect: '/'}),function(req,res){
     //session = req.session;
     /*console.log(req.body.username);
     console.log(req.body.password);*/
