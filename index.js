@@ -104,7 +104,7 @@ app.get('/',function(req,res){
 app.post('/',function(req,res){
     
     //res.render('signup');
-    todo.find({username:username},function(err,data){
+    todo.find({username:"karthik"},function(err,data){
         
         res.render('sample',{data:data});
      });
