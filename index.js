@@ -40,8 +40,8 @@ mongoose.connect('mongodb://test:test@ds139327.mlab.com:39327/todo');
 
 //Create schema
 var todoSchema = new mongoose.Schema({
-    username: String,
-    item: String
+    item: String,
+    username: String
 });
 var accSchema = new mongoose.Schema({
    
