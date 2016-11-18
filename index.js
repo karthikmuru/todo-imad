@@ -104,10 +104,10 @@ app.get('/',function(req,res){
             res.redirect('/profile');
         });
    
-    todo.find({"username" : "karthikmuru"},function(err,data){
+    todo.find({},function(err,data){
         
         if(err) throw err;
-        res.render('sample',{data:data.username});
+        res.render('sample',{data:data});
      });
     //res.render('home-page');
 }); 
