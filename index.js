@@ -55,23 +55,29 @@ var account = mongoose.model('account',accSchema);
 var todo = mongoose.model('todo',todoSchema);
     
 passport.use(new passportLocal(function(username,password,done){
-        
-    account.find({username:username,password:password},function(err,data){
-        
+    
+    account.find({username:username,password:password},{username:1},function(err,data){
+       
+        console.log(data[0].username);
         if(err) throw err;
-        if(data.length == 1) done(null,{id:data});
+        if(data.length == 1) {
+            console.log("success");
+            done(null,{id:data[0].username});
+        }
         else done(null,null);
     });        
  }));
   
-passport.serializeUser(function(id, done){
+passport.serializeUser(function(user,done){
    
-      //console.log("Serialize");
-        done(id.username);
+        console.log("Serialize");
+        console.log(user);
+        done(null,user);
  });
     
 passport.deserializeUser(function(id, done){
        
+    console.log("deSerialize");
     /*account.find({username:id},function(err,data){
         
         if(err) throw err;
@@ -84,8 +90,8 @@ passport.deserializeUser(function(id, done){
         
                         
     });*/
-     //console.log("Deserialize");
-    done(null,{user:id});
+     //console.log(id);
+    done(null,id);
 });
 
 app.get('/',function(req,res){
@@ -108,10 +114,10 @@ app.get('/',function(req,res){
      */
     
 }); 
-
-app.post('/',passport.authenticate('local',{ successRedirect: '/profile',failureRedirect: '/'}),function(req,res){
+//,{ successRedirect: '/profile',failureRedirect: '/'})
+app.post('/',passport.authenticate('local'),function(req,res){
     
-    //res.render('signup');
+    res.redirect('/profile');
     /*account.find({username:"karthikmuru"},function(err,data){
         
         if(err) throw err;
@@ -121,17 +127,18 @@ app.post('/',passport.authenticate('local',{ successRedirect: '/profile',failure
 
 app.get('/profile',function(req,res){
        
-    //console.log(req.id);
+    console.log("user" + req.user.id);
+    console.log("Auth: " + req.isAuthenticated());
     if(req.isAuthenticated() != true)
         res.render('/');
     else{
-        
-        todo.find({username:req.user},function(err,data){
+        console.log("user" + req.user.id);        
+        todo.find({username:req.user.id},function(err,data){
             
             if(err)
-               console.log(err);    
+               console.log("error" + err);    
             else
-                res.render('profile',{todo:data , user:req.user});
+                res.render('profile',{todo:data , user:req.user.id});
         });
          /*res.render('profile',{
             isAuthenticated: req.isAuthenticated(),
