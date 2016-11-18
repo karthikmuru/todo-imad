@@ -72,7 +72,7 @@ passport.serializeUser(function(id, done){
     
 passport.deserializeUser(function(id, done){
        
-    account.find({username:id},function(err,data){
+    /*account.find({username:id},function(err,data){
         
         if(err) throw err;
         if(data.length == 1)
@@ -83,9 +83,9 @@ passport.deserializeUser(function(id, done){
             done(null,null);
         
                         
-    });
+    });*/
      //console.log("Deserialize");
-    //done({id:id});
+    done(null,{user:id});
 });
 
 app.get('/',function(req,res){
