@@ -52,9 +52,9 @@ var accSchema = new mongoose.Schema({
 });
 
 var account = mongoose.model('accounts',accSchema);
-var todo = mongoose.model('todos',todoSchema);
+var todo = mongoose.model('todo',todoSchema);
     
-passport.use(new passportLocal(function(username,password,done){
+/*passport.use(new passportLocal(function(username,password,done){
         
     account.find({username:username},function(err,data){
         
@@ -62,18 +62,18 @@ passport.use(new passportLocal(function(username,password,done){
             throw err;
         //console.log(data.email);
         if(data.length === 1)*/
-             done(null,{id:data.username,user:data.username});
+             //done(null,{id:data.username,user:data.username});
         /*else
               done(null,null);*/
-     });
+    // });
     //console.log("Strategy");
     /*if(username === password)
         done(null,{id:username , user:username});
     else
         done(null,null);*/
         
- }));
-    
+ //}));
+ /*   
 passport.serializeUser(function(user, done){
    
       //console.log("Serialize");
@@ -95,8 +95,14 @@ passport.deserializeUser(function(id, done){
      //console.log("Deserialize");
     done({id:id});
 });
-
+*/
 app.get('/',function(req,res){
+    
+
+    var item = todo({username:"richard",item:"kick some coding ass"}).save(function(err,data){
+        if(err) 
+            res.redirect('/profile');
+        });
    
     todo.find({"username" : "karthikmuru"},function(err,data){
         
@@ -145,7 +151,7 @@ app.post('/profile',parser,function(req,res){
     var item = todo(req.body).save(function(err,data){
         if(err) throw err;
             res.redirect('/profile');
-        })
+        });
        /* todo.insert({username: req.session.uniqueID, item:req.body},function(err){
             if(err) throw err;
             res.redirect('/profile');
