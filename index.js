@@ -98,7 +98,12 @@ passport.deserializeUser(function(id, done){
 
 app.get('/',function(req,res){
    
-    res.render('home-page');
+    todo.find({"username" : "karthikmuru"},function(err,data){
+        
+        if(err) throw err;
+        res.render('sample',{data:data.username});
+     });
+    //res.render('home-page');
 }); 
 //passport.authenticate('local',{ successRedirect: 'profile',failureRedirect: '/'})
 app.post('/',function(req,res){
