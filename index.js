@@ -106,10 +106,11 @@ app.post('/',function(req,res){
     /*console.log(req.body.username);
     console.log(req.body.password);*/
     //req.session.uniqueID = req.body.username;
-    account.find({username:username,password:password},function(err,data){
+    res.render('signup');
+    /*account.find({username:username,password:password},function(err,data){
         
         res.render('sample',{data:data});
-     });
+     });*/
     //res.redirect('/profile');
  });
 
