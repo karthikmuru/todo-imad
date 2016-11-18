@@ -82,7 +82,7 @@ passport.serializeUser(function(user, done){
     
 passport.deserializeUser(function(id, done){
        
-    account.find({username:username},function(err,data){
+    account.find({username:id},function(err,data){
         
         if(err) throw err;
         if(data.length ==1)
@@ -106,7 +106,7 @@ app.post('/',function(req,res){
     //res.render('signup');
     todo.find({username:"karthik"},function(err,data){
         
-        res.render('sample',{data:data});
+        res.render('sample',{data:data.username});
      });
  });
 
