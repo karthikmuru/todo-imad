@@ -53,10 +53,6 @@ var accSchema = new mongoose.Schema({
 
 var account = mongoose.model('account',accSchema);
 var todo = mongoose.model('todo',todoSchema);
-
-
-
-
     
 passport.use(new passportLocal(function(username,password,done){
         
@@ -66,7 +62,7 @@ passport.use(new passportLocal(function(username,password,done){
             throw err;
         console.log(data.email);
         if(data.length === 1)
-             done(null,{id:data._id,user:username});
+             done(null,{id:username,user:username});
         else
               done(null,null);
      });
@@ -81,12 +77,12 @@ passport.use(new passportLocal(function(username,password,done){
 passport.serializeUser(function(user, done){
    
       //console.log("Serialize");
-       done(user.id);
+        done(user.id);
  });
     
 passport.deserializeUser(function(id, done){
        
-    account.findById(id,function(err,data){
+    account.find({username:username},function(err,data){
         
         if(err) throw err;
         if(data.length ==1)
