@@ -51,7 +51,7 @@ var accSchema = new mongoose.Schema({
     
 });
 
-var account = mongoose.model('account',accSchema);
+var account = mongoose.model('accounts',accSchema);
 var todo = mongoose.model('todo',todoSchema);
     
 passport.use(new passportLocal(function(username,password,done){
@@ -102,16 +102,12 @@ app.get('/',function(req,res){
 }); 
 //passport.authenticate('local',{ successRedirect: 'profile',failureRedirect: '/'})
 app.post('/',function(req,res){
-    //session = req.session;
-    /*console.log(req.body.username);
-    console.log(req.body.password);*/
-    //req.session.uniqueID = req.body.username;
-    res.render('signup');
-    /*account.find({username:username,password:password},function(err,data){
+    
+    //res.render('signup');
+    account.find({username:username,password:password},function(err,data){
         
         res.render('sample',{data:data});
-     });*/
-    //res.redirect('/profile');
+     });
  });
 
 app.get('/profile',function(req,res){
