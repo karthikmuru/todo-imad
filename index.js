@@ -113,7 +113,7 @@ app.post('/',function(req,res){
 
 app.get('/profile',function(req,res){
        
-    console.log(req.id);
+    //console.log(req.id);
     /*if(req.isAuthenticated() != true)
         res.render('/');
     else{
@@ -123,14 +123,14 @@ app.get('/profile',function(req,res){
             });
     }*/
        
-    /*todo.find({username: req.session.uniqueID},function(err,data){
+    todo.find({username: "karthik"},function(err,data){
             
         if(err)
            console.log(err);    
         else
             res.render('profile',{todo:data.item , user:req.session.uniqueID});
     });
-    */
+    
     //res.render('profile',{user: req.session.uniqueID});
         
 });
