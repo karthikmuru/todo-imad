@@ -90,7 +90,7 @@ passport.deserializeUser(function(id, done){
 
 app.get('/',function(req,res){
     
-
+    res.render('home-page');
     /*
     reference
     var item = todo({username:"richard",item:"kick some coding ass"}).save(function(err,data){
@@ -106,10 +106,10 @@ app.get('/',function(req,res){
         res.render('sample',{data:data});
      });
      */
-    res.render('home-page');
+    
 }); 
 
-app.post('/',passport.authenticate('local',{ successRedirect: '/profile',failureRedirect: '/'},function(req,res){
+app.post('/',passport.authenticate('local',{ successRedirect: '/profile',failureRedirect: '/'}),function(req,res){
     
     //res.render('signup');
     /*account.find({username:"karthikmuru"},function(err,data){
