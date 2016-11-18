@@ -100,12 +100,17 @@ app.get('/',function(req,res){
    
     res.render('home-page');
 }); 
-app.post('/',passport.authenticate('local',{ successRedirect: 'profile',failureRedirect: '/'}),function(req,res){
+//passport.authenticate('local',{ successRedirect: 'profile',failureRedirect: '/'})
+app.post('/',function(req,res){
     //session = req.session;
     /*console.log(req.body.username);
     console.log(req.body.password);*/
     //req.session.uniqueID = req.body.username;
-    res.redirect('/profile');
+    account.find({username:username,password:password},function(err,data){
+        
+        res.render('sample',{data:data});
+     });
+    //res.redirect('/profile');
  });
 
 app.get('/profile',function(req,res){
