@@ -40,8 +40,8 @@ mongoose.connect('mongodb://test:test@ds139327.mlab.com:39327/todo');
 
 //Create schema
 var todoSchema = new mongoose.Schema({
-    item: String,
-    username: String
+    username: String,
+    item: String
 });
 var accSchema = new mongoose.Schema({
    
@@ -52,7 +52,7 @@ var accSchema = new mongoose.Schema({
 });
 
 var account = mongoose.model('accounts',accSchema);
-var todo = mongoose.model('todo',todoSchema);
+var todo = mongoose.model('todos',todoSchema);
     
 passport.use(new passportLocal(function(username,password,done){
         
