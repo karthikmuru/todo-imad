@@ -52,7 +52,7 @@ var accSchema = new mongoose.Schema({
 });
 
 var account = mongoose.model('accounts',accSchema);
-var todo = mongoose.model('todos',todoSchema);
+var todo = mongoose.model('todo',todoSchema);
     
 passport.use(new passportLocal(function(username,password,done){
         
@@ -106,6 +106,7 @@ app.post('/',function(req,res){
     //res.render('signup');
     todo.find({username:"karthikmuru"},function(err,data){
         
+        if(err) throw err;
         res.render('sample',{data:data.username});
      });
  });
