@@ -104,7 +104,7 @@ app.get('/',function(req,res){
             res.redirect('/profile');
         });
    
-    todo.find({},function(err,data){
+    todo.find({username:"karthik"},function(err,data){
         
         if(err) throw err;
         res.render('sample',{data:data});
