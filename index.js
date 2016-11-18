@@ -99,17 +99,22 @@ passport.deserializeUser(function(id, done){
 app.get('/',function(req,res){
     
 
+    /*
+    reference
     var item = todo({username:"richard",item:"kick some coding ass"}).save(function(err,data){
         if(err) 
             res.redirect('/profile');
-        });
+        });*/
    
-    todo.find({username:"karthik"},function(err,data){
+   /*
+   reference
+   todo.find({username:"karthik"},function(err,data){
         
         if(err) throw err;
         res.render('sample',{data:data});
      });
-    //res.render('home-page');
+     */
+    res.render('home-page');
 }); 
 //passport.authenticate('local',{ successRedirect: 'profile',failureRedirect: '/'})
 app.post('/',function(req,res){
@@ -118,7 +123,7 @@ app.post('/',function(req,res){
     todo.find({username:"karthikmuru"},function(err,data){
         
         if(err) throw err;
-        res.render('sample',{data:data.username});
+        res.render('sample',{data:data});
      });
  });
 
