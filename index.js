@@ -58,13 +58,13 @@ passport.use(new passportLocal(function(username,password,done){
         
     account.find({username:username,password:password},function(err,data){
         
-        if(err)
+        /*if(err)
             throw err;
-        console.log(data.email);
-        if(data.length === 1)
-             done(null,{id:username,user:username});
-        else
-              done(null,null);
+        //console.log(data.email);
+        if(data.length === 1)*/
+             done(null,{id:data.username,user:data.username});
+        /*else
+              done(null,null);*/
      });
     //console.log("Strategy");
     /*if(username === password)
@@ -101,7 +101,6 @@ app.get('/',function(req,res){
     res.render('home-page');
 }); 
 app.post('/',passport.authenticate('local'),function(req,res){
-        
     //session = req.session;
     /*console.log(req.body.username);
     console.log(req.body.password);*/
