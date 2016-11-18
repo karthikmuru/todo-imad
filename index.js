@@ -46,8 +46,8 @@ var todoSchema = new mongoose.Schema({
 var accSchema = new mongoose.Schema({
    
     username:String,
-    password:String,
-    email:String
+    email:String,
+    password:String
     
 });
 
