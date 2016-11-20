@@ -1,6 +1,6 @@
 $(document).ready(function(){
-
-  $('form').on('submit', function(){
+    alert("Hello ninjas!");
+  /*$('form').on('submit', function(){
 
       var item = $('form input');
       var todo = {item: item.val()};
@@ -29,6 +29,6 @@ $(document).ready(function(){
           location.reload();
         }
       });
-  });
+  });*/
 
 });

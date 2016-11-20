@@ -1,39 +1,51 @@
 <html>
     <head>
         <title>Todo lister</title>
-        <script src="https://code.jquery.com/jquery-1.12.4.js" integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU=" crossorigin="anonymous"></script>
-        <script src="../app/todo-list.js"></script>
+        <!--<script src="https://code.jquery.com/jquery-1.12.4.js" integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU=" crossorigin="anonymous"></script> -->
+        
+          
         <link rel="stylesheet" href="css/styles.css">
+        <link href="https://fonts.googleapis.com/css?family=Prociono" rel="stylesheet">
+       <link rel="stylesheet" href="css/profile.css"> 
     </head>
     <body>
         <div class="container">
             <div class="inner-container">
+               <div class="head">
+                   <p>Hi <%= user %></p>
+                   <a href="/logout">LogOut</a>
+               </div>
                 <div class="logo">
-                    <p>Todo List</p>
-                    <p><%= user %></p>
+                    <p>Todo <strong>LISTER</strong></p>
                 </div>
-                <div class="login-form">
-                    <form method="post">
-                       <input type="text" name="item">
+                <div class="login-page">
+                    
+                  <div class="form">
+                    <form method="post" class="login-form">
+                       <input type="text" name="item" required>
                        <input type="hidden" value="<%= user %>" name="username">
-                       <input type="submit" value="Add to list"> 
+                       <input type="submit" value="Add to list" class="insert"> 
                     </form>
-                       
-                    <ul>
+                    <div class="list">
                         <%for(var i = 0;i< todo.length ; i++) {%>
-                            <li>
-                                <%= todo[i].item %>
-                            </li>
-                        
+                            <form method="post" class="item-form">
+                                <input type="hidden" value="<%= todo[i].item %>" name="delitem">
+                                <input type="hidden" value="1" name="item">
+                                <div class="del"><input type="submit" class="cancel" value="Delete"></div>
+                                <p><%= todo[i].item %></p>
+                            </form>
                         <% } %>
-                    </ul>
+                    </div>
+                  </div>
                 </div>
-                <div class="footer">
-                    <p>
-                       
-                    </p>
+                
+                <div class="foot">
+                    
+                        <p>&copy Karthik M</p>
                 </div>
             </div>
         </div>
+        <script src="../app/jquery-2.1.4.js"></script>
+        <script src="../app/todo-list.js"></script>
     </body>
 </html>

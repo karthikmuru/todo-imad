@@ -145,48 +145,59 @@ app.get('/profile',function(req,res){
             user:req.user
             });*/
     }
-       
-    
-    
-    //res.render('profile',{user: req.session.uniqueID});
-        
+    //res.render('profile',{user: req.session.uniqueID});      
 });
     
 app.post('/profile',parser,function(req,res){
        
-    var item = todo(req.body).save(function(err,data){
+    if(req.body.item == '1')
+    {
+        todo.remove({username:req.user.id,item:req.body.delitem},function(err,result){
+            if(err){
+                console.log(err);
+            }
+            else
+             {
+                 console.log(result);
+                res.redirect('/profile');     
+             }   
+        });
+    }
+    else
+    {
+        var item = todo(req.body).save(function(err,data){
         if(err) throw err;
             res.redirect('/profile');
-        });
-       /* todo.insert({username: req.session.uniqueID, item:req.body},function(err){
+        });    
+    }
+    
+       /*todo.insert({username: req.session.uniqueID, item:req.body},function(err){
             if(err) throw err;
             res.redirect('/profile');
         });*/
         
 });
+
+
     
 app.get('/signup',function(req,res){
        
     res.render('signup');
-        
+    
 });
 app.post('/signup',parser,function(req,res){
        
-    var item = new account({username:req.body.username,email:req.body.email,password:req.body.password}).save(function(err,data){
+    var item = new account({username:req.body.username, email:req.body.email, password:req.body.password}).save(function(err,data){
         if(err) throw err;
         res.redirect('/');           
     }); 
 });
-    
-app.get('/logout',function(req,res){
-       
-    req.session.destroy(function(err){
-           
-        console.log(err);
-        res.redirect('/');
-    });
-});
 
+app.get('/logout', function(req, res){
+  req.logout();
+    console.log("logout");
+  res.redirect('/');
+});
 // --
 
 app.get('/css/styles.css', function (req, res) {

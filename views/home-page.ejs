@@ -3,31 +3,32 @@
         <title>Todo lister</title>
         
         <link rel="stylesheet" href="css/styles.css">
-        
+        <link href="https://fonts.googleapis.com/css?family=Prociono" rel="stylesheet">
     </head>
     <body>
         <div class="container">
             <div class="inner-container">
                 <div class="logo">
-                    <p>Todo List</p>
+                    <p>Todo <strong>LISTER</strong></p>
                 </div>
-                <div class="login-head">
-                    <p>Login form</p>
-                </div>
-                <div class="login-form">
-                    <form method="post">                        
-                            <input type="text" name="username">        
-                            <input type="password" name="password">
-                            <input type="submit" value="Login">       
+                
+                
+                <div class="login-page">
+                    
+                  <div class="form">
+                    <p><strong>Login</strong></p>
+                    <form method="post" class="login-form">
+                      <input type="text" placeholder="username" name="username" required/>
+                      <input type="password" placeholder="password" name="password" required/>
+                      <input type="submit" value="Login" name="submit">
+                      <p class="message">Not registered? <a href="/signup">Create an account</a></p>
                     </form>
-                    <div class="signup">
-                        <a href="/signup">signup</a>
-                    </div>
+                  </div>
                 </div>
-                <div class="footer">
-                    <p>
-                       
-                    </p>
+               
+                <div class="foot">
+                    
+                        <p>&copy Karthik M</p>
                 </div>
             </div>
         </div>
