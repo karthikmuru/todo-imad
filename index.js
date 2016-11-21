@@ -185,7 +185,7 @@ app.post('/signup',parser,function(req,res){
         }
         else
         {
-            res.rennder('signup',{data:"Choose a different username!"});
+            res.render('signup',{data:"Username already exists!"});
         }
     });
     console.log(req.body.username);
