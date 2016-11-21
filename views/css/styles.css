@@ -126,4 +126,7 @@ body {
   padding-top: 25px;
   border-top: 1px soild gray; }
 
+.error {
+  color: red; }
+
 /*# sourceMappingURL=styles.css.map */

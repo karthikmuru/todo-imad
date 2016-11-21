@@ -56,13 +56,12 @@ var todo = mongoose.model('todo',todoSchema);
     
 passport.use(new passportLocal(function(username,password,done){
     
-    account.find({username:username,password:password},{username:1},function(err,data){
+    account.find({username:username,password:password},function(err,data){
        
-        console.log(data[0].username);
         if(err) throw err;
         if(data.length == 1) {
             console.log("success");
-            done(null,{id:data[0].username});
+            done(null,{id:data[0]._id});
         }
         else done(null,null);
     });        
@@ -75,23 +74,22 @@ passport.serializeUser(function(user,done){
         done(null,user);
  });
     
-passport.deserializeUser(function(id, done){
+passport.deserializeUser(function(no, done){
        
-    console.log("deSerialize");
-    /*account.find({username:id},function(err,data){
+    console.log("deSerialize" + no.id);
+    account.find({_id:no.id},function(err,data){
         
         if(err) throw err;
+        console.log(data.length);
         if(data.length == 1)
         {
-            done(null,{user:id});   
+            var name = data[0].username;
+            done(null,{id:name});   
         }
         else
             done(null,null);
-        
-                        
-    });*/
-     //console.log(id);
-    done(null,id);
+                                
+    });
 });
 
 app.get('/',function(req,res){
@@ -115,7 +113,7 @@ app.get('/',function(req,res){
     
 }); 
 //,{ successRedirect: '/profile',failureRedirect: '/'})
-app.post('/',passport.authenticate('local'),function(req,res){
+app.post('/',passport.authenticate('local',{ successRedirect: '/profile',failureRedirect: '/' }),function(req,res){
     
     res.redirect('/profile');
     /*account.find({username:"karthikmuru"},function(err,data){
@@ -127,8 +125,6 @@ app.post('/',passport.authenticate('local'),function(req,res){
 
 app.get('/profile',function(req,res){
        
-    console.log("user" + req.user.id);
-    console.log("Auth: " + req.isAuthenticated());
     if(req.isAuthenticated() != true)
         res.render('/');
     else{
@@ -140,12 +136,7 @@ app.get('/profile',function(req,res){
             else
                 res.render('profile',{todo:data , user:req.user.id});
         });
-         /*res.render('profile',{
-            isAuthenticated: req.isAuthenticated(),
-            user:req.user
-            });*/
-    }
-    //res.render('profile',{user: req.session.uniqueID});      
+    }    
 });
     
 app.post('/profile',parser,function(req,res){
@@ -171,26 +162,33 @@ app.post('/profile',parser,function(req,res){
         });    
     }
     
-       /*todo.insert({username: req.session.uniqueID, item:req.body},function(err){
-            if(err) throw err;
-            res.redirect('/profile');
-        });*/
-        
 });
 
 
     
 app.get('/signup',function(req,res){
        
-    res.render('signup');
+    res.render('signup',{data:""});
     
 });
 app.post('/signup',parser,function(req,res){
        
-    var item = new account({username:req.body.username, email:req.body.email, password:req.body.password}).save(function(err,data){
+    todo.find({username:req.body.username},function(err,data){
+       
         if(err) throw err;
-        res.redirect('/');           
-    }); 
+        if(data.length == 0)
+        {
+            var item = new account({username:req.body.username, email:req.body.email, password:req.body.password}).save(function(err,data){
+                if(err) throw err;
+                res.redirect('/');           
+            });        
+        }
+        else
+        {
+            res.rennder('signup',{data:"Choose a different username!"});
+        }
+    });
+    console.log(req.body.username);
 });
 
 app.get('/logout', function(req, res){
